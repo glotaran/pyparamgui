@@ -38,8 +38,8 @@ def _generate_decay_model(
     dict[str, Any]
         The generated model dictionary.
     """
-    compartments = [f"species_{i+1}" for i in range(nr_compartments)]
-    rates = [f"rates.species_{i+1}" for i in range(nr_compartments)]
+    compartments = [f"species_{i + 1}" for i in range(nr_compartments)]
+    rates = [f"rates.species_{i + 1}" for i in range(nr_compartments)]
 
     model: dict[str, Any] = {
         "megacomplex": {
@@ -56,18 +56,18 @@ def _generate_decay_model(
             "megacomplex_spectral": {
                 "type": "spectral",
                 "shape": {
-                    compartment: f"shape_species_{i+1}"
+                    compartment: f"shape_species_{i + 1}"
                     for i, compartment in enumerate(compartments)
                 },
             }
         }
         model["shape"] = {
-            f"shape_species_{i+1}": {
+            f"shape_species_{i + 1}": {
                 "type": "skewed-gaussian",
-                "amplitude": f"shapes.species_{i+1}.amplitude",
-                "location": f"shapes.species_{i+1}.location",
-                "width": f"shapes.species_{i+1}.width",
-                "skewness": f"shapes.species_{i+1}.skewness",
+                "amplitude": f"shapes.species_{i + 1}.amplitude",
+                "location": f"shapes.species_{i + 1}.location",
+                "width": f"shapes.species_{i + 1}.width",
+                "skewness": f"shapes.species_{i + 1}.skewness",
             }
             for i in range(nr_compartments)
         }
