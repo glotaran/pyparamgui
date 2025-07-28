@@ -13,9 +13,7 @@ from pydantic import ConfigDict
 class KineticParameters(BaseModel):
     """Kinetic parameters for the simulation.
 
-    Attributes
-    ----------
-        decay_rates (list[float]): List of decay rates.
+    Attributes ----------     decay_rates (list[float]): List of decay rates.
     """
 
     decay_rates: list[float]
@@ -24,12 +22,9 @@ class KineticParameters(BaseModel):
 class SpectralParameters(BaseModel):
     """Spectral parameters for the simulation.
 
-    Attributes
-    ----------
-        amplitude (list[float]): List of amplitudes.
-        location (list[float]): List of locations.
-        width (list[float]): List of widths.
-        skewness (list[float]): List of skewness values.
+    Attributes ----------     amplitude (list[float]): List of amplitudes.     location
+    (list[float]): List of locations.     width (list[float]): List of widths.     skewness
+    (list[float]): List of skewness values.
     """
 
     amplitude: list[float]
@@ -41,10 +36,8 @@ class SpectralParameters(BaseModel):
 class TimeCoordinates(BaseModel):
     """Time coordinates for the simulation.
 
-    Attributes
-    ----------
-        timepoints_max (int): Maximum number of time points.
-        timepoints_stepsize (float): Step size between time points.
+    Attributes ----------     timepoints_max (int): Maximum number of time points.
+    timepoints_stepsize (float): Step size between time points.
     """
 
     timepoints_max: int
@@ -54,11 +47,8 @@ class TimeCoordinates(BaseModel):
 class SpectralCoordinates(BaseModel):
     """Spectral coordinates for the simulation.
 
-    Attributes
-    ----------
-        wavelength_min (int): Minimum wavelength.
-        wavelength_max (int): Maximum wavelength.
-        wavelength_stepsize (float): Step size between wavelengths.
+    Attributes ----------     wavelength_min (int): Minimum wavelength.     wavelength_max (int):
+    Maximum wavelength.     wavelength_stepsize (float): Step size between wavelengths.
     """
 
     wavelength_min: int
@@ -98,14 +88,11 @@ def generate_simulation_coordinates(
 class Settings(BaseModel):
     """Other settings for the simulation.
 
-    Attributes
-    ----------
-        stdev_noise (float): Standard deviation of the noise to be added to the simulation data.
-        seed (int): Seed for the random number generator to ensure reproducibility.
-        add_gaussian_irf (bool): Whether to add a Gaussian IRF to the simulation.
-            Default is False.
-        use_sequential_scheme (bool): Whether to use a sequential scheme in the simulation.
-            Default is False.
+    Attributes ----------     stdev_noise (float): Standard deviation of the noise to be added to
+    the simulation data.     seed (int): Seed for the random number generator to ensure
+    reproducibility.     add_gaussian_irf (bool): Whether to add a Gaussian IRF to the simulation.
+    Default is False.     use_sequential_scheme (bool): Whether to use a sequential scheme in the
+    simulation.         Default is False.
     """
 
     stdev_noise: float
@@ -117,10 +104,8 @@ class Settings(BaseModel):
 class IRF(BaseModel):
     """Instrument Response Function (IRF) settings for the simulation.
 
-    Attributes
-    ----------
-        center (float): The center position of the IRF.
-        width (float): The width of the IRF.
+    Attributes ----------     center (float): The center position of the IRF.     width (float):
+    The width of the IRF.
     """
 
     center: float
@@ -130,15 +115,13 @@ class IRF(BaseModel):
 class SimulationConfig(BaseModel):
     """Configuration for the simulation, combining various parameters and settings.
 
-    Attributes
-    ----------
-        kinetic_parameters (KineticParameters): Kinetic parameters for the simulation.
-        spectral_parameters (SpectralParameters): Spectral parameters for the simulation.
-        coordinates (Dict[str, np.ndarray]): Dictionary containing the time and spectral axes as
-            numpy arrays.
-        settings (Settings): Other settings for the simulation, including noise standard deviation,
-            random seed, and flags for adding Gaussian IRF and using a sequential scheme.
-        irf (IRF): Instrument Response Function (IRF) settings, e.g. center position and width.
+    Attributes ----------     kinetic_parameters (KineticParameters): Kinetic parameters for the
+    simulation.     spectral_parameters (SpectralParameters): Spectral parameters for the
+    simulation.     coordinates (Dict[str, np.ndarray]): Dictionary containing the time and
+    spectral axes as         numpy arrays.     settings (Settings): Other settings for the
+    simulation, including noise standard deviation,         random seed, and flags for adding
+    Gaussian IRF and using a sequential scheme.     irf (IRF): Instrument Response Function (IRF)
+    settings, e.g. center position and width.
     """
 
     kinetic_parameters: KineticParameters
