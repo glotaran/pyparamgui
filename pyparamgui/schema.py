@@ -15,7 +15,8 @@ class KineticParameters(BaseModel):
 
     Attributes
     ----------
-        decay_rates (list[float]): List of decay rates.
+    decay_rates : list[float]
+        List of decay rates.
     """
 
     decay_rates: list[float]
@@ -26,10 +27,14 @@ class SpectralParameters(BaseModel):
 
     Attributes
     ----------
-        amplitude (list[float]): List of amplitudes.
-        location (list[float]): List of locations.
-        width (list[float]): List of widths.
-        skewness (list[float]): List of skewness values.
+    amplitude : list[float]
+        List of amplitudes.
+    location : list[float]
+        List of locations.
+    width : list[float]
+        List of widths.
+    skewness : list[float]
+        List of skewness values.
     """
 
     amplitude: list[float]
@@ -43,8 +48,10 @@ class TimeCoordinates(BaseModel):
 
     Attributes
     ----------
-        timepoints_max (int): Maximum number of time points.
-        timepoints_stepsize (float): Step size between time points.
+    timepoints_max : int
+        Maximum number of time points.
+    timepoints_stepsize : float
+        Step size between time points.
     """
 
     timepoints_max: int
@@ -56,9 +63,12 @@ class SpectralCoordinates(BaseModel):
 
     Attributes
     ----------
-        wavelength_min (int): Minimum wavelength.
-        wavelength_max (int): Maximum wavelength.
-        wavelength_stepsize (float): Step size between wavelengths.
+    wavelength_min : int
+        Minimum wavelength.
+    wavelength_max : int
+        Maximum wavelength.
+    wavelength_stepsize : float
+        Step size between wavelengths.
     """
 
     wavelength_min: int
@@ -100,12 +110,14 @@ class Settings(BaseModel):
 
     Attributes
     ----------
-        stdev_noise (float): Standard deviation of the noise to be added to the simulation data.
-        seed (int): Seed for the random number generator to ensure reproducibility.
-        add_gaussian_irf (bool): Whether to add a Gaussian IRF to the simulation.
-            Default is False.
-        use_sequential_scheme (bool): Whether to use a sequential scheme in the simulation.
-            Default is False.
+    stdev_noise : float
+        Standard deviation of the noise to be added to the simulation data.
+    seed : int
+        Seed for the random number generator to ensure reproducibility.
+    add_gaussian_irf : bool
+        Whether to add a Gaussian IRF to the simulation. Default is False.
+    use_sequential_scheme : bool
+        Whether to use a sequential scheme in the simulation. Default is False.
     """
 
     stdev_noise: float
@@ -119,8 +131,10 @@ class IRF(BaseModel):
 
     Attributes
     ----------
-        center (float): The center position of the IRF.
-        width (float): The width of the IRF.
+    center : float
+        The center position of the IRF.
+    width : float
+        The width of the IRF.
     """
 
     center: float
@@ -132,13 +146,17 @@ class SimulationConfig(BaseModel):
 
     Attributes
     ----------
-        kinetic_parameters (KineticParameters): Kinetic parameters for the simulation.
-        spectral_parameters (SpectralParameters): Spectral parameters for the simulation.
-        coordinates (Dict[str, np.ndarray]): Dictionary containing the time and spectral axes as
-            numpy arrays.
-        settings (Settings): Other settings for the simulation, including noise standard deviation,
-            random seed, and flags for adding Gaussian IRF and using a sequential scheme.
-        irf (IRF): Instrument Response Function (IRF) settings, e.g. center position and width.
+    kinetic_parameters : KineticParameters
+        Kinetic parameters for the simulation.
+    spectral_parameters : SpectralParameters
+        Spectral parameters for the simulation.
+    coordinates : dict[str, np.ndarray]
+        Dictionary containing the time and spectral axes as numpy arrays.
+    settings : Settings
+        Other settings for the simulation, including noise standard deviation,
+        random seed, and flags for adding Gaussian IRF and using a sequential scheme.
+    irf : IRF
+        Instrument Response Function (IRF) settings, e.g. center position and width.
     """
 
     kinetic_parameters: KineticParameters

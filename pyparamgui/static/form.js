@@ -6,7 +6,7 @@
  * @param {string} inputName - The name attribute for the input element.
  * @param {string} inputValue - The initial value for the input element.
  *
- * @returns {HTMLDivElement} The form group element containing the label and input.
+ * @returns {{ formGroup: HTMLDivElement, input: HTMLInputElement }} An object containing the form group element and text input.
  */
 function createTextFormGroup(labelText, inputId, inputName, inputValue) {
   const formGroup = document.createElement("div");
@@ -36,7 +36,7 @@ function createTextFormGroup(labelText, inputId, inputName, inputValue) {
  * @param {string} inputName - The name attribute for the input element.
  * @param {boolean} [inputChecked=false] - The initial checked state for the checkbox.
  *
- * @returns {HTMLDivElement} The form group element containing the label and checkbox input.
+ * @returns {{ formGroup: HTMLDivElement, input: HTMLInputElement }} An object containing the form group element and checkbox input.
  */
 function createCheckboxFormGroup(
   labelText,
@@ -96,10 +96,7 @@ function parseNumberList(value) {
 }
 
 function createSimulationId() {
-  if (
-    globalThis.crypto &&
-    typeof globalThis.crypto.randomUUID === "function"
-  ) {
+  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") {
     return globalThis.crypto.randomUUID();
   }
 
@@ -451,10 +448,7 @@ function render({ model, el }) {
     model.set("add_gaussian_irf_input", addGaussianIrfInput.checked);
     model.set("irf_location_input", convertedInputs.irf_location);
     model.set("irf_width_input", convertedInputs.irf_width);
-    model.set(
-      "use_sequential_scheme_input",
-      useSequentialSchemeInput.checked,
-    );
+    model.set("use_sequential_scheme_input", useSequentialSchemeInput.checked);
     model.set("model_file_name_input", modelFileNameInput.value);
     model.set("parameter_file_name_input", parameterFileNameInput.value);
     model.set("data_file_name_input", dataFileNameInput.value);

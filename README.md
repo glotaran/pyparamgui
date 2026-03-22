@@ -23,7 +23,7 @@ A pyglotaran based jupyter notebook widget for teaching parameter estimation exa
 Install and run PyParamGUI directly from the repository without cloning:
 
 ```bash
-uv run --with "pyparamgui @ git+https://github.com/glotaran/PyParamGUI" --with jupyter jupyter lab
+uv run --with "pyparamgui @ git+https://github.com/glotaran/pyparamgui" --with jupyter jupyter lab
 ```
 
 ### Option 2: Run from a local clone
@@ -39,7 +39,7 @@ uv run --with . --with jupyter jupyter lab
 Add PyParamGUI as a dependency to your project:
 
 ```bash
-uv add pyparamgui @ git+https://github.com/glotaran/PyParamGUI
+uv add "pyparamgui @ git+https://github.com/glotaran/pyparamgui"
 ```
 
 Then run Jupyter Lab in your project environment:
@@ -58,7 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/anmolbhatia05"><img src="https://avatars.githubusercontent.com/u/34206963?v=4?s=100" width="100px;" alt="Anmol Bhatia"/><br /><sub><b>Anmol Bhatia</b></sub></a><br /><a href="https://github.com/glotaran/PyParamGUI/commits?author=anmolbhatia05" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/anmolbhatia05"><img src="https://avatars.githubusercontent.com/u/34206963?v=4?s=100" width="100px;" alt="Anmol Bhatia"/><br /><sub><b>Anmol Bhatia</b></sub></a><br /><a href="https://github.com/glotaran/pyparamgui/commits?author=anmolbhatia05" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
