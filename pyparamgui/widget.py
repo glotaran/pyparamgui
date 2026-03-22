@@ -25,29 +25,52 @@ class Widget(anywidget.AnyWidget):
 
     Attributes
     ----------
-        _esm (pathlib.Path): Path to the JavaScript file for the widget.
-        _css (pathlib.Path): Path to the CSS file for the widget.
-        decay_rates_input (traitlets.List): List of decay rates as floats.
-        amplitude_input (traitlets.List): List of amplitudes as floats.
-        location_input (traitlets.List): List of locations as floats.
-        width_input (traitlets.List): List of widths as floats.
-        skewness_input (traitlets.List): List of skewness values as floats.
-        timepoints_max_input (traitlets.Int): Maximum number of timepoints.
-        timepoints_stepsize_input (traitlets.Float): Step size for timepoints.
-        wavelength_min_input (traitlets.Float): Minimum wavelength value.
-        wavelength_max_input (traitlets.Float): Maximum wavelength value.
-        wavelength_stepsize_input (traitlets.Float): Step size for wavelength.
-        stdev_noise_input (traitlets.Float): Standard deviation of noise.
-        seed_input (traitlets.Int): Seed for random number generation.
-        add_gaussian_irf_input (traitlets.Bool): Flag to add Gaussian IRF.
-        irf_location_input (traitlets.Float): Location of the IRF center.
-        irf_width_input (traitlets.Float): Width of the IRF.
-        use_sequential_scheme_input (traitlets.Bool): Flag to use sequential scheme.
-        model_file_name_input (traitlets.Unicode): Name of the model file.
-        parameter_file_name_input (traitlets.Unicode): Name of the parameter file.
-        data_file_name_input (traitlets.Unicode): Name of the data file.
-        simulate (traitlets.Unicode): Trigger for simulation.
-        visualize_data (traitlets.Bool): Flag to visualize data.
+    _esm : pathlib.Path
+        Path to the JavaScript file for the widget.
+    _css : pathlib.Path
+        Path to the CSS file for the widget.
+    decay_rates_input : traitlets.List
+        List of decay rates as floats.
+    amplitude_input : traitlets.List
+        List of amplitudes as floats.
+    location_input : traitlets.List
+        List of locations as floats.
+    width_input : traitlets.List
+        List of widths as floats.
+    skewness_input : traitlets.List
+        List of skewness values as floats.
+    timepoints_max_input : traitlets.Int
+        Maximum number of timepoints.
+    timepoints_stepsize_input : traitlets.Float
+        Step size for timepoints.
+    wavelength_min_input : traitlets.Float
+        Minimum wavelength value.
+    wavelength_max_input : traitlets.Float
+        Maximum wavelength value.
+    wavelength_stepsize_input : traitlets.Float
+        Step size for wavelength.
+    stdev_noise_input : traitlets.Float
+        Standard deviation of noise.
+    seed_input : traitlets.Int
+        Seed for random number generation.
+    add_gaussian_irf_input : traitlets.Bool
+        Flag to add Gaussian IRF.
+    irf_location_input : traitlets.Float
+        Location of the IRF center.
+    irf_width_input : traitlets.Float
+        Width of the IRF.
+    use_sequential_scheme_input : traitlets.Bool
+        Flag to use sequential scheme.
+    model_file_name_input : traitlets.Unicode
+        Name of the model file.
+    parameter_file_name_input : traitlets.Unicode
+        Name of the parameter file.
+    data_file_name_input : traitlets.Unicode
+        Name of the data file.
+    simulate : traitlets.Unicode
+        Trigger for simulation.
+    visualize_data : traitlets.Bool
+        Flag to visualize data.
     """
 
     _esm: pathlib.Path = pathlib.Path(__file__).parent / "static" / "form.js"

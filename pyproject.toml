@@ -5,7 +5,6 @@ requires = [
 ]
 
 [project]
-
 name = "pyparamgui"
 description = "pyglotaran notebook widgets for teaching parameter estimation examples"
 readme = "README.md"
@@ -13,11 +12,10 @@ keywords = [
   "pyparamgui",
 ]
 license = { file = "LICENSE" }
-
 authors = [
   { name = "Anmol Bhatia", email = "anmolbhatia05@gmail.com " },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.15"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Developers",
@@ -27,16 +25,17 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
 ]
 dynamic = [
   "version",
 ]
-
 dependencies = [
   "anywidget==0.9.13",
-  "pydantic==2.8.2",
-  "pyglotaran==0.7.2",
-  "pyglotaran-extras==0.7.2",
+  "pydantic==2.12.5",
+  "pyglotaran==0.7.4",
+  "pyglotaran-extras==0.7.4",
   "pyyaml==6.0.1",
 ]
 optional-dependencies.dev = [
@@ -63,14 +62,15 @@ urls.Homepage = "https://github.com/glotaran/pyparamgui"
 urls.Source = "https://github.com/glotaran/pyparamgui"
 urls.Tracker = "https://github.com/glotaran/pyparamgui/issues"
 
-[tool.hatch.version]
-path = "pyparamgui/__init__.py"
+[dependency-groups]
+dev = [
+  "ipykernel>=7.2",
+]
 
-[tool.hatch.build.targets.sdist]
-include = [ "/pyparamgui", "/tests" ]
-
-[tool.hatch.envs.default]
-features = [ "dev" ]
+[tool.hatch]
+build.targets.sdist.include = [ "/pyparamgui", "/tests" ]
+envs.default.features = [ "dev" ]
+version.path = "pyparamgui/__init__.py"
 
 [tool.docformatter]
 black = true
@@ -79,48 +79,10 @@ wrap-descriptions = 99
 
 [tool.pydoclint]
 skip-checking-short-docstrings = false
-style = 'numpy'
-exclude = '^(docs/|tests?/)'
+style = "numpy"
+exclude = "^(docs/|tests?/)"
 require-return-section-when-returning-nothing = false
 allow-init-docstring = true
-
-[tool.pytest.ini_options]
-addopts = [
-  "--cov=pyparamgui",
-  "--cov-report=term",
-  "--cov-report=xml",
-  "--cov-report=html",
-  "--cov-config=pyproject.toml",
-]
-
-[tool.coverage.run]
-branch = true
-omit = [
-  'pyparamgui/__init__.py',
-  'tests/*',
-  # comment the above line if you want to see if all tests did run
-]
-
-[tool.coverage.report]
-# Regexes for lines to exclude from consideration
-exclude_lines = [
-  # Have to re-enable the standard pragma
-  'pragma: no cover',
-
-  # Don't complain about missing debug-only code:
-  'def __repr__',
-  'if self\.debug',
-
-  # Don't complain if tests don't hit defensive assertion code:
-  'raise AssertionError',
-  'raise NotImplementedError',
-
-  # Don't complain if non-runnable code isn't run:
-  'if 0:',
-  'if __name__ == .__main__.:',
-  # only accessible during typechecking
-  'if TYPE_CHECKING:',
-]
 
 [tool.mypy]
 exclude = "^docs/"
@@ -131,8 +93,42 @@ warn_unused_configs = true
 warn_unused_ignores = true
 strict_equality = true
 
-# For now this is not used because pydoclint does not support toml when used with flake8
+[tool.pytest]
+ini_options.addopts = [
+  "--cov=pyparamgui",
+  "--cov-report=term",
+  "--cov-report=xml",
+  "--cov-report=html",
+  "--cov-config=pyproject.toml",
+]
 
+[tool.coverage]
+run.branch = true
+run.omit = [
+  "pyparamgui/__init__.py",
+  "tests/*",
+  # comment the above line if you want to see if all tests did run
+]
+# Regexes for lines to exclude from consideration
+report.exclude_lines = [
+  # Don't complain about missing debug-only code:
+  "def __repr__",
+  "if __name__ == .__main__.:",
+
+  # Don't complain if non-runnable code isn't run:
+  "if 0:",
+  "if self\\.debug",
+  # only accessible during typechecking
+  "if TYPE_CHECKING:",
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+
+  # Don't complain if tests don't hit defensive assertion code:
+  "raise AssertionError",
+  "raise NotImplementedError",
+]
+
+# For now this is not used because pydoclint does not support toml when used with flake8
 [tool.interrogate]
 exclude = [ "docs", "tests" ]
 ignore-init-module = true
