@@ -16,6 +16,38 @@
 
 A pyglotaran based jupyter notebook widget for teaching parameter estimation examples. It can simulate data, visualize it and create related model.yml, parameters.csv and dataset.nc files. It is supposed to help students learn about the basics of the pyglotaran ecosystem.
 
+## Usage
+
+### Option 1: Run directly from GitHub with uv
+
+Install and run PyParamGUI directly from the repository without cloning:
+
+```bash
+uv run --with "pyparamgui @ git+https://github.com/glotaran/PyParamGUI" --with jupyter jupyter lab
+```
+
+### Option 2: Run from a local clone
+
+Clone the repository and run with the local source:
+
+```bash
+uv run --with . --with jupyter jupyter lab
+```
+
+### Option 3: Add to an existing uv project
+
+Add PyParamGUI as a dependency to your project:
+
+```bash
+uv add pyparamgui @ git+https://github.com/glotaran/PyParamGUI
+```
+
+Then run Jupyter Lab in your project environment:
+
+```bash
+uv run jupyter lab
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
