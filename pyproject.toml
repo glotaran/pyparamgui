@@ -17,7 +17,7 @@ license = { file = "LICENSE" }
 authors = [
   { name = "Anmol Bhatia", email = "anmolbhatia05@gmail.com " },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.13"
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Intended Audience :: Developers",
@@ -35,8 +35,8 @@ dynamic = [
 dependencies = [
   "anywidget==0.9.13",
   "pydantic==2.8.2",
-  "pyglotaran==0.7.2",
-  "pyglotaran-extras==0.7.2",
+  "pyglotaran==0.7.4",
+  "pyglotaran-extras==0.7.4",
   "pyyaml==6.0.1",
 ]
 optional-dependencies.dev = [
@@ -137,3 +137,8 @@ strict_equality = true
 exclude = [ "docs", "tests" ]
 ignore-init-module = true
 fail-under = 100
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
+]

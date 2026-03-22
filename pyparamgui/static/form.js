@@ -25,7 +25,7 @@ function createTextFormGroup(labelText, inputId, inputName, inputValue) {
   formGroup.appendChild(label);
   formGroup.appendChild(input);
 
-  return formGroup;
+  return { formGroup, input };
 }
 
 /**
@@ -60,7 +60,50 @@ function createCheckboxFormGroup(
   formGroup.appendChild(label);
   formGroup.appendChild(input);
 
-  return formGroup;
+  return { formGroup, input };
+}
+
+function appendTextFormGroup(form, labelText, inputId, inputName, inputValue) {
+  const { formGroup, input } = createTextFormGroup(
+    labelText,
+    inputId,
+    inputName,
+    inputValue,
+  );
+  form.appendChild(formGroup);
+  return input;
+}
+
+function appendCheckboxFormGroup(
+  form,
+  labelText,
+  inputId,
+  inputName,
+  inputChecked = false,
+) {
+  const { formGroup, input } = createCheckboxFormGroup(
+    labelText,
+    inputId,
+    inputName,
+    inputChecked,
+  );
+  form.appendChild(formGroup);
+  return input;
+}
+
+function parseNumberList(value) {
+  return value.split(",").map((part) => parseFloat(part.trim()));
+}
+
+function createSimulationId() {
+  if (
+    globalThis.crypto &&
+    typeof globalThis.crypto.randomUUID === "function"
+  ) {
+    return globalThis.crypto.randomUUID();
+  }
+
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
 /**
@@ -87,11 +130,11 @@ function createCheckboxFormGroup(
  */
 function convertInputs(inputs) {
   try {
-    const decay_rates = inputs.decay_rates.split(",").map(parseFloat);
-    const amplitude = inputs.amplitude.split(",").map(parseFloat);
-    const location = inputs.location.split(",").map(parseFloat);
-    const width = inputs.width.split(",").map(parseFloat);
-    const skewness = inputs.skewness.split(",").map(parseFloat);
+    const decay_rates = parseNumberList(inputs.decay_rates);
+    const amplitude = parseNumberList(inputs.amplitude);
+    const location = parseNumberList(inputs.location);
+    const width = parseNumberList(inputs.width);
+    const skewness = parseNumberList(inputs.skewness);
     const timepoints_max = parseInt(inputs.timepoints_max, 10);
     const timepoints_stepsize = parseFloat(inputs.timepoints_stepsize);
     const wavelength_min = parseFloat(inputs.wavelength_min);
@@ -216,190 +259,176 @@ function displaySimulationMessage(parentElement) {
 function render({ model, el }) {
   const form = document.createElement("form");
 
-  form.appendChild(
-    createTextFormGroup(
-      "Decay rates:",
-      "decay_rates_input",
-      "decay_rates_input",
-      "0.055, 0.005",
-    ),
+  const decayRatesInput = appendTextFormGroup(
+    form,
+    "Decay rates:",
+    "decay_rates_input",
+    "decay_rates_input",
+    "0.055, 0.005",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createTextFormGroup(
-      "Amplitudes:",
-      "amplitude_input",
-      "amplitude_input",
-      "1., 1.",
-    ),
+  const amplitudeInput = appendTextFormGroup(
+    form,
+    "Amplitudes:",
+    "amplitude_input",
+    "amplitude_input",
+    "1., 1.",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Location (mean) of spectra:",
-      "location_input",
-      "location_input",
-      "22000, 20000",
-    ),
+  const locationInput = appendTextFormGroup(
+    form,
+    "Location (mean) of spectra:",
+    "location_input",
+    "location_input",
+    "22000, 20000",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Width of spectra:",
-      "width_input",
-      "width_input",
-      "4000, 3500",
-    ),
+  const widthInput = appendTextFormGroup(
+    form,
+    "Width of spectra:",
+    "width_input",
+    "width_input",
+    "4000, 3500",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Skewness of spectra:",
-      "skewness_input",
-      "skewness_input",
-      "0.1, -0.1",
-    ),
+  const skewnessInput = appendTextFormGroup(
+    form,
+    "Skewness of spectra:",
+    "skewness_input",
+    "skewness_input",
+    "0.1, -0.1",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createTextFormGroup(
-      "Timepoints, max:",
-      "timepoints_max_input",
-      "timepoints_max_input",
-      "80",
-    ),
+  const timepointsMaxInput = appendTextFormGroup(
+    form,
+    "Timepoints, max:",
+    "timepoints_max_input",
+    "timepoints_max_input",
+    "80",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Stepsize:",
-      "timepoints_stepsize_input",
-      "timepoints_stepsize_input",
-      "1",
-    ),
+  const timepointsStepsizeInput = appendTextFormGroup(
+    form,
+    "Stepsize:",
+    "timepoints_stepsize_input",
+    "timepoints_stepsize_input",
+    "1",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createTextFormGroup(
-      "Wavelength Min:",
-      "wavelength_min_input",
-      "wavelength_min_input",
-      "400",
-    ),
+  const wavelengthMinInput = appendTextFormGroup(
+    form,
+    "Wavelength Min:",
+    "wavelength_min_input",
+    "wavelength_min_input",
+    "400",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Wavelength Max:",
-      "wavelength_max_input",
-      "wavelength_max_input",
-      "600",
-    ),
+  const wavelengthMaxInput = appendTextFormGroup(
+    form,
+    "Wavelength Max:",
+    "wavelength_max_input",
+    "wavelength_max_input",
+    "600",
   );
-  form.appendChild(
-    createTextFormGroup(
-      "Stepsize:",
-      "wavelength_stepsize_input",
-      "wavelength_stepsize_input",
-      "5",
-    ),
+  const wavelengthStepsizeInput = appendTextFormGroup(
+    form,
+    "Stepsize:",
+    "wavelength_stepsize_input",
+    "wavelength_stepsize_input",
+    "5",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createTextFormGroup(
-      "Std.dev. noise:",
-      "stdev_noise_input",
-      "stdev_noise_input",
-      "0.01",
-    ),
+  const stdevNoiseInput = appendTextFormGroup(
+    form,
+    "Std.dev. noise:",
+    "stdev_noise_input",
+    "stdev_noise_input",
+    "0.01",
   );
-  form.appendChild(
-    createTextFormGroup("Seed:", "seed_input", "seed_input", "123"),
-  );
-  form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createCheckboxFormGroup(
-      "Add Gaussian IRF:",
-      "add_gaussian_irf_input",
-      "add_gaussian_irf_input",
-    ),
-  );
-  form.appendChild(
-    createTextFormGroup(
-      "IRF location:",
-      "irf_location_input",
-      "irf_location_input",
-      "3",
-    ),
-  );
-  form.appendChild(
-    createTextFormGroup(
-      "IRF width:",
-      "irf_width_input",
-      "irf_width_input",
-      "1",
-    ),
+  const seedInput = appendTextFormGroup(
+    form,
+    "Seed:",
+    "seed_input",
+    "seed_input",
+    "123",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createCheckboxFormGroup(
-      "Use Sequential Scheme:",
-      "use_sequential_scheme_input",
-      "use_sequential_scheme_input",
-    ),
+  const addGaussianIrfInput = appendCheckboxFormGroup(
+    form,
+    "Add Gaussian IRF:",
+    "add_gaussian_irf_input",
+    "add_gaussian_irf_input",
+  );
+  const irfLocationInput = appendTextFormGroup(
+    form,
+    "IRF location:",
+    "irf_location_input",
+    "irf_location_input",
+    "3",
+  );
+  const irfWidthInput = appendTextFormGroup(
+    form,
+    "IRF width:",
+    "irf_width_input",
+    "irf_width_input",
+    "1",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createTextFormGroup(
-      "Model File Name:",
-      "model_file_name_input",
-      "model_file_name_input",
-      "model.yml",
-    ),
-  );
-  form.appendChild(
-    createTextFormGroup(
-      "Parameter File Name:",
-      "parameter_file_name_input",
-      "parameter_file_name_input",
-      "parameters.csv",
-    ),
-  );
-  form.appendChild(
-    createTextFormGroup(
-      "Data File Name:",
-      "data_file_name_input",
-      "data_file_name_input",
-      "dataset.nc",
-    ),
+  const useSequentialSchemeInput = appendCheckboxFormGroup(
+    form,
+    "Use Sequential Scheme:",
+    "use_sequential_scheme_input",
+    "use_sequential_scheme_input",
   );
   form.appendChild(document.createElement("hr"));
-  form.appendChild(
-    createCheckboxFormGroup(
-      "Visualize Data:",
-      "visualize_data_input",
-      "visualize_data_input",
-      true,
-    ),
+  const modelFileNameInput = appendTextFormGroup(
+    form,
+    "Model File Name:",
+    "model_file_name_input",
+    "model_file_name_input",
+    "model.yml",
+  );
+  const parameterFileNameInput = appendTextFormGroup(
+    form,
+    "Parameter File Name:",
+    "parameter_file_name_input",
+    "parameter_file_name_input",
+    "parameters.csv",
+  );
+  const dataFileNameInput = appendTextFormGroup(
+    form,
+    "Data File Name:",
+    "data_file_name_input",
+    "data_file_name_input",
+    "dataset.nc",
+  );
+  form.appendChild(document.createElement("hr"));
+  const visualizeDataInput = appendCheckboxFormGroup(
+    form,
+    "Visualize Data:",
+    "visualize_data_input",
+    "visualize_data_input",
+    true,
   );
 
   el.appendChild(form);
 
   const btn = document.createElement("button");
+  btn.type = "button";
   btn.textContent = "Simulate";
   btn.addEventListener("click", function (event) {
     event.preventDefault();
 
     const inputs = {
-      decay_rates: decay_rates_input.value,
-      amplitude: amplitude_input.value,
-      location: location_input.value,
-      width: width_input.value,
-      skewness: skewness_input.value,
-      timepoints_max: timepoints_max_input.value,
-      timepoints_stepsize: timepoints_stepsize_input.value,
-      wavelength_min: wavelength_min_input.value,
-      wavelength_max: wavelength_max_input.value,
-      wavelength_stepsize: wavelength_stepsize_input.value,
-      stdev_noise: stdev_noise_input.value,
-      seed: seed_input.value,
-      irf_location: irf_location_input.value,
-      irf_width: irf_width_input.value,
+      decay_rates: decayRatesInput.value,
+      amplitude: amplitudeInput.value,
+      location: locationInput.value,
+      width: widthInput.value,
+      skewness: skewnessInput.value,
+      timepoints_max: timepointsMaxInput.value,
+      timepoints_stepsize: timepointsStepsizeInput.value,
+      wavelength_min: wavelengthMinInput.value,
+      wavelength_max: wavelengthMaxInput.value,
+      wavelength_stepsize: wavelengthStepsizeInput.value,
+      stdev_noise: stdevNoiseInput.value,
+      seed: seedInput.value,
+      irf_location: irfLocationInput.value,
+      irf_width: irfWidthInput.value,
     };
     const convertedInputs = convertInputs(inputs);
     if (!convertedInputs) return;
@@ -419,18 +448,18 @@ function render({ model, el }) {
     model.set("wavelength_stepsize_input", convertedInputs.wavelength_stepsize);
     model.set("stdev_noise_input", convertedInputs.stdev_noise);
     model.set("seed_input", convertedInputs.seed);
-    model.set("add_gaussian_irf_input", add_gaussian_irf_input.checked);
+    model.set("add_gaussian_irf_input", addGaussianIrfInput.checked);
     model.set("irf_location_input", convertedInputs.irf_location);
     model.set("irf_width_input", convertedInputs.irf_width);
     model.set(
       "use_sequential_scheme_input",
-      use_sequential_scheme_input.checked,
+      useSequentialSchemeInput.checked,
     );
-    model.set("model_file_name_input", model_file_name_input.value);
-    model.set("parameter_file_name_input", parameter_file_name_input.value);
-    model.set("data_file_name_input", data_file_name_input.value);
-    model.set("visualize_data", visualize_data_input.checked);
-    model.set("simulate", self.crypto.randomUUID());
+    model.set("model_file_name_input", modelFileNameInput.value);
+    model.set("parameter_file_name_input", parameterFileNameInput.value);
+    model.set("data_file_name_input", dataFileNameInput.value);
+    model.set("visualize_data", visualizeDataInput.checked);
+    model.set("simulate", createSimulationId());
 
     model.save_changes();
 
