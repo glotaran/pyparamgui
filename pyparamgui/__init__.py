@@ -15,8 +15,4 @@ Package Usage:
 
     widget = Widget()
     widget
-
-Frontend development in JupyterLab only:
-    %env ANYWIDGET_HMR=1
-    from pyparamgui import Widget
 """
